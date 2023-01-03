@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import AddReview from "../components/add-review";
-// import MoviesList from "../components/movies-list";
-// import Movie from "../components/movie";
-// import Login from "../components/login";
+import { Routes, Route, Link } from "react-router-dom";
+import AddReview from "./components/add-review";
+import MoviesList from "./components/movies-list";
+import Movie from "./components/movie";
+import Login from "./components/login";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -30,7 +30,7 @@ function App() {
             </Nav.Link>
             <Nav.Link>
               {user ? (
-                <a onClick={logout}>Logout User</a>
+                <button onclick={logout}>Logout User</button>
               ) : (
                 <Link to="/login">Login</Link>
               )}
@@ -38,6 +38,22 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
+      <Routes>
+        <Route path="/movies" element={<MoviesList />}></Route>
+        <Route
+          path="/movies/:id/review"
+          element={(props) => <AddReview {...props} user={user} />}
+        ></Route>
+        <Route
+          path="/movies/:id/"
+          element={(props) => <Movie {...props} user={user} />}
+        ></Route>
+        <Route
+          path="/login"
+          element={(props) => <Login {...props} login={login} />}
+        ></Route>
+      </Routes>
     </div>
   );
 }
